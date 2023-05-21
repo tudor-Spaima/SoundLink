@@ -1,0 +1,12 @@
+LICENSE
+README.md
+setup.py
+band_recommendation.egg-info/PKG-INFO
+band_recommendation.egg-info/SOURCES.txt
+band_recommendation.egg-info/dependency_links.txt
+band_recommendation.egg-info/requires.txt
+band_recommendation.egg-info/top_level.txt
+lib/__init__.py
+lib/api.py
+lib/band_recommendation.py
+lib/main.py

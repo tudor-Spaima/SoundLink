@@ -1,5 +1,24 @@
 import requests
-import warnings
+
+
+'''
+                             ,--,                                    
+          ____            ,---.'|                               ,--. 
+        ,'  , `.    ,---,.|   | :                 ,---,       ,--.'| 
+     ,-+-,.' _ |  ,'  .' |:   : |         ,---.,`--.' |   ,--,:  : | 
+  ,-+-. ;   , ||,---.'   ||   ' :        /__./||   :  :,`--.'`|  ' : 
+ ,--.'|'   |  ;||   |   .';   ; '   ,---.;  ; |:   |  '|   :  :  | | 
+|   |  ,', |  '::   :  |-,'   | |__/___/ \  | ||   :  |:   |   \ | : 
+|   | /  | |  ||:   |  ;/||   | :.'\   ;  \ ' |'   '  ;|   : '  '; | 
+'   | :  | :  |,|   :   .''   :    ;\   \  \: ||   |  |'   ' ;.    ; 
+;   . |  ; |--' |   |  |-,|   |  ./  ;   \  ' .'   :  ;|   | | \   | 
+|   : |  | ,    '   :  ;/|;   : ;     \   \   '|   |  ''   : |  ; .' 
+|   : '  |/     |   |    \|   ,/       \   `  ;'   :  ||   | '`--'   
+;   | |`-'      |   :   .''---'         :   \ |;   |.' '   : |       
+|   ;/          |   | ,'                 '---" '---'   ;   |.'       
+'---'           `----'                                 '---'         
+                                                                
+'''
 
 class BandRecommendation:
     def __init__(self, api_key):
@@ -15,29 +34,29 @@ class BandRecommendation:
         }
 
         try:
-            with warnings.catch_warnings():
-                warnings.simplefilter("ignore")
-                response = requests.get(base_url, params=params, headers=self.headers)
+            response = requests.get(base_url, params=params, headers=self.headers)
             response.raise_for_status()
             data = response.json()
 
             artist_id = data.get('data', [])[0].get('id')
 
             similar_url = f'https://api.deezer.com/artist/{artist_id}/related'
-            params['limit'] = limit
+            params = {
+                'limit': limit,
+                'output': 'json'
+            }
 
-            with warnings.catch_warnings():
-                warnings.simplefilter("ignore")
-                response = requests.get(similar_url, params=params, headers=self.headers)
+            response = requests.get(similar_url, params=params, headers=self.headers)
             response.raise_for_status()
+            data = response.json()
 
             artists = data.get('data', [])
 
             print(f"Recommended similar bands to '{query}':")
-            for i, artist in enumerate(artists, 1):
+            for i, artist in enumerate(artists[:limit], 1):
                 name = artist['name']
                 print(f"{i}. {name}")
-        except Exception as e:
+        except requests.exceptions.RequestException as e:
             print(f"An error occurred: {e}")
 
 class SongRecommendation:
@@ -54,9 +73,7 @@ class SongRecommendation:
         }
 
         try:
-            with warnings.catch_warnings():
-                warnings.simplefilter("ignore")
-                response = requests.get(base_url, params=params, headers=self.headers)
+            response = requests.get(base_url, params=params, headers=self.headers)
             response.raise_for_status()
             data = response.json()
 
@@ -68,9 +85,7 @@ class SongRecommendation:
                 'output': 'json'
             }
 
-            with warnings.catch_warnings():
-                warnings.simplefilter("ignore")
-                response = requests.get(tracks_url, params=params, headers=self.headers)
+            response = requests.get(tracks_url, params=params, headers=self.headers)
             response.raise_for_status()
             data = response.json()
 
@@ -78,14 +93,12 @@ class SongRecommendation:
 
             print(f"Recommended songs from {query} in order of relevance:")
             recommended_songs = set()
-            for i, track in enumerate(tracks, 1):
+            for i, track in enumerate(tracks[:limit], 1):
                 artist = track['artist']['name']
                 title = track['title']
                 song = f"{artist} - {title}"
                 if song not in recommended_songs:
                     print(f"{i}. {song}")
                     recommended_songs.add(song)
-                    if len(recommended_songs) == limit:
-                        break
-        except Exception as e:
+        except requests.exceptions.RequestException as e:
             print(f"An error occurred: {e}")
