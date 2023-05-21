@@ -100,13 +100,13 @@ class Song:
 
 
 
-def get_band_recommendations(query, limit):
-    api_key = '79f636998b7825c8adb2a900f9619e39'
+def get_band_recommendations(query, limit, api_key):
+    api_key = api_key
     __recommendation = Band(api_key).recommend_similar_bands(query, limit)
     return __recommendation
 
 
-def get_song_recommendations(query, limit):
-    api_key = '79f636998b7825c8adb2a900f9619e39'
+def get_song_recommendations(query, limit, api_key):
+    api_key = api_key
     __recommendation = Song(api_key).recommend_songs(query, limit)
     return __recommendation
