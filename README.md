@@ -8,9 +8,7 @@ band_recommendation is a Python package that provides functionality for recommen
 You can install the band_recommendation package using `pip`. Run the following command in your terminal:
 
 
-`pip install band_recommendation
-
-`
+`pip install band_recommendation `
 
 
 ## Usage
