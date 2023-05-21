@@ -2,25 +2,19 @@ import requests
 
 
 '''
-                             ,--,                                    
-          ____            ,---.'|                               ,--. 
-        ,'  , `.    ,---,.|   | :                 ,---,       ,--.'| 
-     ,-+-,.' _ |  ,'  .' |:   : |         ,---.,`--.' |   ,--,:  : | 
-  ,-+-. ;   , ||,---.'   ||   ' :        /__./||   :  :,`--.'`|  ' : 
- ,--.'|'   |  ;||   |   .';   ; '   ,---.;  ; |:   |  '|   :  :  | | 
-|   |  ,', |  '::   :  |-,'   | |__/___/ \  | ||   :  |:   |   \ | : 
-|   | /  | |  ||:   |  ;/||   | :.'\   ;  \ ' |'   '  ;|   : '  '; | 
-'   | :  | :  |,|   :   .''   :    ;\   \  \: ||   |  |'   ' ;.    ; 
-;   . |  ; |--' |   |  |-,|   |  ./  ;   \  ' .'   :  ;|   | | \   | 
-|   : |  | ,    '   :  ;/|;   : ;     \   \   '|   |  ''   : |  ; .' 
-|   : '  |/     |   |    \|   ,/       \   `  ;'   :  ||   | '`--'   
-;   | |`-'      |   :   .''---'         :   \ |;   |.' '   : |       
-|   ;/          |   | ,'                 '---" '---'   ;   |.'       
-'---'           `----'                                 '---'         
-                                                                
+ $$$$$$\                                      $$\ $$\       $$\           $$\       
+$$  __$$\                                     $$ |$$ |      \__|          $$ |      
+$$ /  \__| $$$$$$\  $$\   $$\ $$$$$$$\   $$$$$$$ |$$ |      $$\ $$$$$$$\  $$ |  $$\ 
+\$$$$$$\  $$  __$$\ $$ |  $$ |$$  __$$\ $$  __$$ |$$ |      $$ |$$  __$$\ $$ | $$  |
+ \____$$\ $$ /  $$ |$$ |  $$ |$$ |  $$ |$$ /  $$ |$$ |      $$ |$$ |  $$ |$$$$$$  / 
+$$\   $$ |$$ |  $$ |$$ |  $$ |$$ |  $$ |$$ |  $$ |$$ |      $$ |$$ |  $$ |$$  _$$<  
+\$$$$$$  |\$$$$$$  |\$$$$$$  |$$ |  $$ |\$$$$$$$ |$$$$$$$$\ $$ |$$ |  $$ |$$ | \$$\ 
+ \______/  \______/  \______/ \__|  \__| \_______|\________|\__|\__|  \__|\__|  \__|
+                                                                                    
+                                                                                            
 '''
 
-class BandRecommendation:
+class Band:
     def __init__(self, api_key):
         self.api_key = api_key
         self.headers = {'User-Agent': 'Mozilla/5.0'}
@@ -59,7 +53,7 @@ class BandRecommendation:
         except requests.exceptions.RequestException as e:
             print(f"An error occurred: {e}")
 
-class SongRecommendation:
+class Song:
     def __init__(self, api_key):
         self.api_key = api_key
         self.headers = {'User-Agent': 'Mozilla/5.0'}
@@ -102,3 +96,17 @@ class SongRecommendation:
                     recommended_songs.add(song)
         except requests.exceptions.RequestException as e:
             print(f"An error occurred: {e}")
+
+
+
+
+def get_band_recommendations(query, limit):
+    api_key = '79f636998b7825c8adb2a900f9619e39'
+    __recommendation = Band(api_key).recommend_similar_bands(query, limit)
+    return __recommendation
+
+
+def get_song_recommendations(query, limit):
+    api_key = '79f636998b7825c8adb2a900f9619e39'
+    __recommendation = Song(api_key).recommend_songs(query, limit)
+    return __recommendation

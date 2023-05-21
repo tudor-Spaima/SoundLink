@@ -1,21 +1,14 @@
-import streamlit as st
-from api import get_recommendations
+from soundlink import get_band_recommendations, get_song_recommendations
+
+query = 'Pink Floyd'
+limit = 10
+
 
 def main():
-    st.title('Band Recommendation App')
+    band_recommendations = get_band_recommendations(query, limit)
 
-    query = st.text_input('Enter a band or artist name:')
-    limit = st.number_input('Enter the number of similar bands to recommend:', min_value=1, max_value=20, value=10, step=1)
-
-    if st.button('Recommend'):
-        recommendation = get_recommendations(query, limit)
-
-        if isinstance(recommendation, list):
-            st.success(f"Recommended similar bands to '{query}':")
-            for i, band in enumerate(recommendation, 1):
-                st.write(f"{i}. {band}")
-        else:
-            st.error(f"Error: {recommendation['error']}")
+    '''if you want to get song recommendations from a certain band or artist:'''
+    #song_recommendations = get_song_recommendations(query, limit)
 
 if __name__ == '__main__':
     main()
