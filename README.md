@@ -45,3 +45,15 @@ Contributions to the SoundLink package are welcome! If you find any issues or ha
 ## License
 
 SoundLink  is released under the MIT License. See the [LICENSE](https://github.com/tudor-Spaima/MusicMap/blob/main/LICENSE "MIT_LICENSE") file for more details.
+
+##Terms of Use
+
+By using this software or service, you agree to the following terms and conditions:
+
+The software or service provided is for personal and non-commercial use only. You are prohibited from using it for any commercial purposes, including but not limited to selling, licensing, or distributing the software or service or any content derived from it.
+
+You may not use the software or service to generate revenue, profit, or any financial gain. This includes using it in any business, commercial venture, or for any commercial exploitation.
+
+You are not allowed to modify, alter, or reverse engineer the software or service for commercial purposes or to create derivative works based on it.
+
+
